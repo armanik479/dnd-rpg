@@ -12,15 +12,18 @@ class Character:
         self.magic = self.calculate_magic()
         self.inventory = []
 
+
     def calculate_health(self):
         if self.character_class == "Mercenary":
-            return 100
+            self.health = 100
         elif self.character_class == "Mage":
             return 80
         elif self.character_class == "Knight": 
             return 120
         elif self.character_class == "Bandit":
             return 90
+        elif self.character_class == "gods":
+            return 99999999999999999999999999999999999
         else:
             return 100
     def calculate_luck(self):
@@ -32,6 +35,8 @@ class Character:
             return 95
         elif self.character_class == "Bandit":
             return 110
+        elif self.character_class == "gods":
+            return 99999999999999999999999999999999999
         else:
             return 100
     def calculate_intelligence(self):
@@ -43,6 +48,8 @@ class Character:
             return 110
         elif self.character_class == "Bandit":
             return 85
+        elif self.character_class == "gods":
+            return 99999999999999999999999999999999999
         else:
             return 100
     def calculate_dexterity(self):
@@ -54,6 +61,8 @@ class Character:
             return 90
         elif self.character_class == "Bandit":
             return 130
+        elif self.character_class == "gods":
+            return 99999999999999999999999999999999999
         else:
             return 100
     def calculate_strength(self):
@@ -65,6 +74,8 @@ class Character:
             return 120
         elif self.character_class == "Bandit":
             return 90
+        elif self.character_class == "gods":
+            return 99999999999999999999999999999999999
         else:
             return 100
     def calculate_magic(self):
@@ -76,6 +87,8 @@ class Character:
             return 50
         elif self.character_class == "Bandit":
             return 0
+        elif self.character_class == "gods":
+            return 99999999999999999999999999999999999
         else:
             return 100
     def display_character(self):
@@ -86,18 +99,28 @@ class Character:
         print(f"Intelligence: {self.intelligence}")
         print(f"Health: {self.health}")
         print(f"Magic: {self.magic}")
+        print(f"inventory: {self.inventory}")
+    
+    def is_alive(self):
+        return self.health > 0
+    
+    def attack(self, target):
+        damage = self.strength + random.randint(-50, 5)  # Randomize damage
+        target.health -= damage
+        print(f"{self.name} attacks {target.name} for {damage} damage!")
+
 
 
 def create_character():
     print("Welcome to my personal hell (i did not like making this)")
     name = input("Enter your character's name: ")
-    
+
 
     
     while True:
      try:
          character_class = str(input("Choose your character class (Mercenary, Mage, Knight, Bandit): "))
-         list1d = ['Mercenary', 'Mage', 'Knight', 'Bandit']
+         list1d = ['Mercenary', 'Mage', 'Knight', 'Bandit', 'gods']
          if character_class not in list1d:
             print("bruh\nPick a class")
          else:
@@ -123,34 +146,50 @@ if __name__ == "__main__":
 
 
 
-class goblin:
+class goblin():
     def __init__(self):
-        self.name = goblin
+        self.name = "Goblin"
         self.strength = 50
         self.dexterity = 10
         self.intelligence = 10
         self.luck = 10
+        self.health = 20
+        self.magic = 0
+
+    def attack(self, character):
+        damage = self.strength + random.randint(-30, +5)
+        Character.health -= damage
+        print(f"{self.name} attacks {character.name} for {damage} damage!")
+Goblin = goblin()
+
+class skel():
+    def __init__(self):
+        self.name = "Skeleton"
+        self.strength = 30
+        self.dexterity = 5
+        self.intelligence = 20
+        self.luck = 10
         self.health = 10
         self.magic = 0
 
-def attack_goblin(Character, goblin):
-    damage = Character.strength
-    if damage > 0:
-        goblin.health -= damage
-        print(f"{Character.name} attacks {goblin.name} for {damage} damage!")
-    if goblin.health <= 0:
-        print("goblin is defeated")
+    def attack(self, character):
+        damage = self.strength + random.randint(-20, +5)
+        Character.health -= damage
+        print(f"{self.name} attacks {character.name} for {damage} damage!")
+Skeleton = skel()
 
-def fight_goblin():
-    while Character.health > 0 or goblin.health <= 0:
-     try:
-        choice = int(input("You are fighting a goblin\nPick (1) to attack"))
-        break
-     except ValueError:
-        print("Pick a number") 
-    if choice == 1:
-        attack_goblin()
+class dragon():
+    def __init__(self):
+        self.name = "Dragon"
+        self.strength = 100
+        self.dexterity = 200
+        self.intelligence = 150
+        self.luck = 50
+        self.health = 300
+        self.magic = 300
 
-
-if True:
-    fight_goblin()
+    def attack(self, character):
+        damage = self.strength + random.randint(-20, +5)
+        Character.health -= damage
+        print(f"{self.name} attacks {character.name} for {damage} damage!")
+Dragon = dragon()
